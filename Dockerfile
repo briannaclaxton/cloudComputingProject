@@ -2,16 +2,17 @@ FROM ubuntu:16.04
 
 MAINTAINER Brianna Boyce "brieboyce@gmail.com"
 
-RUN apt-get update -y && \ apt-get install -y python-pip python-dev
+RUN  apt-get update -y && \
+ apt-get install -y python-pip python-dev
 
-COPY ./requirements.txt /todolistApi/requirements.txt
+COPY ./requirements.txt /todolist/requirements.txt
 
-WORKDIR /todolistApi
+WORKDIR /todolist
 
 RUN pip install -r requirements.txt
 
-COPY . /todolistApi
+COPY . /todolist
 
 ENTRYPOINT [ "python" ]
 
-CMD [ "todolistApi.py" ]
+CMD [ "todolist.py" ]

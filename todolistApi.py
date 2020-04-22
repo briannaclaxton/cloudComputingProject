@@ -1,6 +1,7 @@
 # This is a simple example web app that is meant to illustrate the basics.
 from flask import Flask, render_template, redirect, g, request, url_for
 import sqlite3
+import json
 
 DATABASE = 'todolist.db'
 
@@ -14,7 +15,7 @@ def get_items():
     entries = cur.fetchall()
     tdlist = [dict(what_to_do=row[0], due_date=row[1], status=row[2])
               for row in entries]
-    return jsonify(tdlist)
+    return json.dumps(tdlist)
 
 @app.route("/api/items/add", methods=['POST'])
 def add_entry():
@@ -25,7 +26,7 @@ def add_entry():
 	response = {
 		"status": "200"
 	}
-	return jsonify(response) #redirect(url_for('show_list'))
+	return json.dumps(response) #redirect(url_for('show_list'))
 
 @app.route("/api/items/delete/<item>")
 def delete_entry(item):
@@ -35,7 +36,7 @@ def delete_entry(item):
 	response = {
 		"status": "200"
 	}
-	return  jsonify(response) #redirect(url_for('show_list'))
+	return  json.dumps(response) #redirect(url_for('show_list'))
 
 @app.route("//api/items/mark/<item>")
 def mark_as_done(item):
@@ -45,7 +46,7 @@ def mark_as_done(item):
 	response = {
 		"status": "200"
 	}
-	return jsonify(response)#redirect(url_for('show_list'))
+	return json.dumps(response)#redirect(url_for('show_list'))
 
 def get_db():
 	"""Opens a new database connection if there is none yet for the
