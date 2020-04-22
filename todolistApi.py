@@ -61,3 +61,6 @@ def close_db(error):
 	"""Closes the database again at the end of the request."""
 	if hasattr(g, 'sqlite_db'):
 		g.sqlite_db.close()
+
+if __name__ == "__main__":
+	app.run("0.0.0.0")
