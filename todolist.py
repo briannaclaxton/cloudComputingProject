@@ -21,6 +21,8 @@ def show_list():
 
 @app.route("/add", methods=['POST'])
 def add_entry():
+	print(request.form['what_to_do'])
+	print(request.form['due_date'])
 	data = json.dumps({'whatToDo': request.form['what_to_do'], 'dueDate': request.form['due_date']})
 	response = urlopen('http://35.223.88.52:5000/api/items/add', data)
 	resp = response.read()
