@@ -39,6 +39,7 @@ def add_entry():
 @app.route("/api/items/delete/<item>")
 def delete_entry(item):
 	db = get_db()
+	print('deleting '+item)
 	db.execute("DELETE FROM entries WHERE what_to_do='"+item+"'")
 	db.commit()
 	response = {

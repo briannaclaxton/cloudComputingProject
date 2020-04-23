@@ -2,7 +2,7 @@
 from flask import Flask, render_template, redirect, g, request, url_for
 import sqlite3
 import json
-from urllib2 import urlopen
+from urllib2 import urlopen, Request
 import urllib
 
 DATABASE = 'todolist.db'
@@ -24,7 +24,8 @@ def add_entry():
 	print(request.form['what_to_do'])
 	print(request.form['due_date'])
 	dataz = json.dumps({'whatToDo': request.form['what_to_do'], 'dueDate': request.form['due_date']})
-	response = urlopen('http://35.223.88.52:5000/api/items/add', data=dataz)
+	req = Request('http://35.223.88.52:5000/api/items/add', data=dataz, headers={'Content-Type': 'application/json'})
+	response = urlopen(req)
 	resp = response.read()
 	resp = json.loads(resp)
 	return redirect(url_for('show_list'))
@@ -32,7 +33,7 @@ def add_entry():
 
 @app.route("/delete/<item>")
 def delete_entry(item):
-	response = urlopen('http://35.223.88.52:5000/api/items/delete/<item>')
+	response = urlopen('http://35.223.88.52:5000/api/items/delete/'+item)
 	resp = response.read()
 	resp = json.loads(resp)
 	return redirect(url_for('show_list'))
