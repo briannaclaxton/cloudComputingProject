@@ -2,6 +2,7 @@
 from flask import Flask, render_template, redirect, g, request, url_for
 import sqlite3
 import json
+import encode
 
 DATABASE = 'todolist.db'
 
@@ -20,14 +21,6 @@ def get_items():
 @app.route("/api/items/add", methods=['POST'])
 def add_entry():
 	db = get_db()
-	print(dir(request))
-	print(" ")
-	print(dir(request.form))
-	print(" ")
-	print(dir(request.json))
-	print(" ")
-	print(dir(request.data))
-
 	db.execute('insert into entries (what_to_do, due_date) values (?, ?)',
 			   [request.json['whatToDo'], request.json['dueDate']])
 	db.commit()
@@ -40,7 +33,7 @@ def add_entry():
 def delete_entry(item):
 	db = get_db()
 	print('deleting '+item)
-	db.execute("DELETE FROM entries WHERE what_to_do='"+item.decode('UTF-8')+"'")
+	db.execute("DELETE FROM entries WHERE what_to_do='"+item+"'")
 	db.commit()
 	response = {
 		"status": "200"
@@ -50,7 +43,7 @@ def delete_entry(item):
 @app.route("//api/items/mark/<item>")
 def mark_as_done(item):
 	db = get_db()
-	db.execute("UPDATE entries SET status='done' WHERE what_to_do='"+item.decode('UTF-8')+"'")
+	db.execute("UPDATE entries SET status='done' WHERE what_to_do='"+item+"'")
 	db.commit()
 	response = {
 		"status": "200"

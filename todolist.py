@@ -33,7 +33,7 @@ def add_entry():
 
 @app.route("/delete/<item>")
 def delete_entry(item):
-	response = urlopen('http://35.223.88.52:5000/api/items/delete/'+item.encode('UTF-8'))
+	response = urlopen('http://35.223.88.52:5000/api/items/delete/'+unicode(item, 'UTF-8'))
 	resp = response.read()
 	resp = json.loads(resp)
 	return redirect(url_for('show_list'))
@@ -41,7 +41,7 @@ def delete_entry(item):
 
 @app.route("/mark/<item>")
 def mark_as_done(item):
-	response = urlopen('http://35.223.88.52:5000/api/items/mark/'+item,encode('UTF-8'))
+	response = urlopen('http://35.223.88.52:5000/api/items/mark/'+item.encode('UTF-8'))
 	resp = response.read()
 	resp = json.loads(resp)
 	return redirect(url_for('show_list'))
