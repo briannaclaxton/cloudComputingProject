@@ -1,4 +1,4 @@
-# cloudComputingProject
+# Cloud Computing Project - Brianna Boyce
 CISC 5550 Cloud Computing Project
 
 A simple todolist example app and API using Flask 
