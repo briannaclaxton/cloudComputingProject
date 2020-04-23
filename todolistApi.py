@@ -20,7 +20,7 @@ def get_items():
 @app.route("/api/items/add", methods=['POST'])
 def add_entry():
 	db = get_db()
-	print(dir(request))
+	print(dir(request.data))
 	db.execute('insert into entries (what_to_do, due_date) values (?, ?)',
 			   [request.json['what_to_do'], request.json['due_date']])
 	db.commit()
