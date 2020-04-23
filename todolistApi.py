@@ -22,10 +22,10 @@ def add_entry():
 	db = get_db()
 	print(dir(request))
 	print(" ")
-	print(dir(request.data))
+	print(dir(request.json))
 
 	db.execute('insert into entries (what_to_do, due_date) values (?, ?)',
-			   [request.json['what_to_do'], request.json['due_date']])
+			   [request.json['whatToDo'], request.json['dueDate']])
 	db.commit()
 	response = {
 		"status": "200"
