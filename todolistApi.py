@@ -32,8 +32,8 @@ def add_entry():
 @app.route("/api/items/delete/<item>")
 def delete_entry(item):
 	db = get_db()
-	print('deleting '+item)
-	db.execute("DELETE FROM entries WHERE what_to_do='"+html.unescape(item)+"'")
+	print('deleting '+html.unescape(item))
+	db.execute("DELETE FROM entries WHERE what_to_do='"+html.unescape(item.replace('+', ' '))+"'")
 	db.commit()
 	response = {
 		"status": "200"
@@ -43,7 +43,7 @@ def delete_entry(item):
 @app.route("//api/items/mark/<item>")
 def mark_as_done(item):
 	db = get_db()
-	db.execute("UPDATE entries SET status='done' WHERE what_to_do='"+html.unescape(item)+"'")
+	db.execute("UPDATE entries SET status='done' WHERE what_to_do='"+html.unescape(item.replace('+', ' '))+"'")
 	db.commit()
 	response = {
 		"status": "200"
