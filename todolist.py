@@ -12,32 +12,34 @@ app.config.from_object(__name__)
 
 @app.route("/")
 def show_list():
-	with urlopen('http://34.70.152.160:5000/api/items') as response:
-		resp = response.read()
+	response = urlopen('http://35.223.88.52:5000/api/items')
+	resp = response.read()
 	resp = json.loads(resp)
 	return render_template('index.html', todolist=resp)
 
 
 @app.route("/add", methods=['POST'])
 def add_entry():
-	with urlopen('http://34.70.152.160:5000/api/items/add') as response:
-		resp = response.read()
+	data = json.dumps({'whatToDo': request.form['what_to_do'], 
+					  'dueDate': request.form['due_date']})
+	response = urlopen('https://35.223.88.52:5000/api/items/add', data)
+	resp = response.read()
 	resp = json.loads(resp)
 	return redirect(url_for('show_list'))
 
 
 @app.route("/delete/<item>")
 def delete_entry(item):
-	with urlopen('http://34.70.152.160:5000/api/items/delete/<item>') as response:
-		resp = response.read()
+	response = urlopen('http://35.223.88.52:5000/api/items/delete/<item>')
+	resp = response.read()
 	resp = json.loads(resp)
 	return redirect(url_for('show_list'))
 
 
 @app.route("/mark/<item>")
 def mark_as_done(item):
-	with urlopen('http://34.70.152.160:5000/api/items/mark/<item>') as response:
-		resp = response.read()
+	response = urlopen('http://35.223.88.52:5000/api/items/mark/<item>')
+	resp = response.read()
 	resp = json.loads(resp)
 	return redirect(url_for('show_list'))
 
