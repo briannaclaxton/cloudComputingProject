@@ -2,7 +2,6 @@
 from flask import Flask, render_template, redirect, g, request, url_for
 import sqlite3
 import json
-import encode
 
 DATABASE = 'todolist.db'
 
