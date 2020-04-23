@@ -21,8 +21,8 @@ def show_list():
 
 @app.route("/add", methods=['POST'])
 def add_entry():
-	data = json.dumps(request.form['what_to_do'], request.form['due_date'])
-	response = urlopen('http://35.223.88.52:5000/api/items/add', data)
+	data = json.dumps({'whatToDo': request.form['what_to_do'], 'dueDate': request.form['due_date']})
+	response = urlopen('http://35.223.88.52:5000/api/items/add', data) ERROR in app: Exception on /api/items/add [POST]
 	resp = response.read()
 	resp = json.loads(resp)
 	return redirect(url_for('show_list'))
