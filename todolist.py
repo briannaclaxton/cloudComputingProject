@@ -4,16 +4,18 @@ import sqlite3
 import json
 from urllib2 import urlopen, Request
 import urllib
+import os
 
 DATABASE = 'todolist.db'
 
 app = Flask(__name__)
 app.config.from_object(__name__)
 
+TODO_API_URL = "http://"+os.environ['TODO_API_IP']+":5000"
 
 @app.route("/")
 def show_list():
-	response = urlopen('http://35.223.88.52:5000/api/items')
+	response = urlopen(TODO_API_URL+'api/items')
 	resp = response.read()
 	resp = json.loads(resp)
 	return render_template('index.html', todolist=resp)
@@ -24,7 +26,7 @@ def add_entry():
 	print(request.form['what_to_do'])
 	print(request.form['due_date'])
 	dataz = json.dumps({'whatToDo': request.form['what_to_do'], 'dueDate': request.form['due_date']})
-	req = Request('http://35.223.88.52:5000/api/items/add', data=dataz, headers={'Content-Type': 'application/json'})
+	req = Request(TODO_API_URL+'/api/items/add', data=dataz, headers={'Content-Type': 'application/json'})
 	response = urlopen(req)
 	resp = response.read()
 	resp = json.loads(resp)
@@ -33,7 +35,7 @@ def add_entry():
 
 @app.route("/delete/<item>")
 def delete_entry(item):
-	response = urlopen('http://35.223.88.52:5000/api/items/delete/'+urllib.quote_plus(item))
+	response = urlopen(TODO_API_URL+'/api/items/delete/'+urllib.quote_plus(item))
 	resp = response.read()
 	resp = json.loads(resp)
 	return redirect(url_for('show_list'))
@@ -41,7 +43,7 @@ def delete_entry(item):
 
 @app.route("/mark/<item>")
 def mark_as_done(item):
-	response = urlopen('http://35.223.88.52:5000/api/items/mark/'+urllib.quote_plus(item))
+	response = urlopen(TODO_API_URL+'/api/items/mark/'+urllib.quote_plus(item))
 	resp = response.read()
 	resp = json.loads(resp)
 	return redirect(url_for('show_list'))
