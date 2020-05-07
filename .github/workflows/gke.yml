@@ -64,7 +64,8 @@ jobs:
     - name: Deploy
       run: |
         gcloud config set project cisc5550cloud
-        gcloud container clusters create $GKE_CLUSTER --zone $GKE_ZONE --num-nodes=2
+        gcloud container clusters delete todo-cluster
+        gcloud container clusters create $GKE_CLUSTER --zone $GKE_ZONE
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
         export TODO_API_IP=`gcloud compute instances list --filter=cisc5550-instance --format="value(EXTERNAL_IP)"`
         kubectl run $DEPLOYMENT_NAME --env="TODO_API_IP=$TODO_API_IP" --image=$REGISTRY_HOSTNAME/$GKE_PROJECT/$IMAGE:$GITHUB_SHA --port=5000
