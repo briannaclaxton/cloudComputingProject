@@ -67,7 +67,6 @@ jobs:
         gcloud container clusters create $GKE_CLUSTER --zone $GKE_ZONE --num-nodes=2
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
         export TODO_API_IP=`gcloud compute instances list --filter=cisc5550-instance --format="value(EXTERNAL_IP)"`
-        kubectl run todolist --env="TODO_API_IP=$TODO_API_IP" --image=briannaboyce/todo --port=5000
-        kubectl expose deployment todolist --type=LoadBalancer 
-        kubectl rollout status deployment/$DEPLOYMENT_NAME
-        kubectl get services -o wide
+        kubectl run $DEPLOYMENT_NAME --env="TODO_API_IP=$TODO_API_IP" --image=briannaboyce/todo --port=5000
+        kubectl expose deployment $DEPLOYMENT_NAME --type=LoadBalancer 
+        kubectl get service $DEPLOYMENT_NAME
