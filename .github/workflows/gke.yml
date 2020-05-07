@@ -64,7 +64,7 @@ jobs:
     - name: Deploy
       run: |
         gcloud config set project cisc5550cloud
-        gcloud container clusters delete todo-cluster --zone $GKE_ZONE -y
+        gcloud container clusters delete todo-cluster --zone $GKE_ZONE -q
         gcloud container clusters create $GKE_CLUSTER --zone $GKE_ZONE
         gcloud container clusters get-credentials $GKE_CLUSTER --zone $GKE_ZONE --project $GKE_PROJECT
         export TODO_API_IP=`gcloud compute instances list --filter=cisc5550-instance --format="value(EXTERNAL_IP)"`
