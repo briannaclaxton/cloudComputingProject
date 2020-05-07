@@ -12,5 +12,5 @@ git clone https://github.com/briannaboyce/cloudComputingProject
 cd ~/cloudComputingProject
 
 #Start server
-python3 todolist.py
+python3 todolistApi.py
 
