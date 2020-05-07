@@ -6,9 +6,8 @@ pip3 install flask
 sudo apt-get install -y git
 
 #Fetch files
-cd home/brieboyce
 git clone https://github.com/briannaboyce/cloudComputingProject
-cd cloudComputingProject
+cd ~/cloudComputingProject
 
 #Start server
 python3 todolist.py
