@@ -10,12 +10,13 @@ DATABASE = 'todolist.db'
 
 app = Flask(__name__)
 app.config.from_object(__name__)
+print(dir(os.environ))
 
-TODO_API_URL = "http://"+os.environ['TODO_API_IP']+":5000"
-
+TODO_API_URL = os.environ['TODO_API_IP']+":5000"
+print(TODO_API_URL)
 @app.route("/")
 def show_list():
-	response = urlopen(TODO_API_URL+'api/items')
+	response = urlopen(TODO_API_URL+'/api/items')
 	resp = response.read()
 	resp = json.loads(resp)
 	return render_template('index.html', todolist=resp)
