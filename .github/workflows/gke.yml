@@ -23,7 +23,7 @@ env:
   GKE_ZONE: us-central1-a
   GKE_CLUSTER: todo-cluster
   IMAGE: briannaboyce/todo
-  REGISTRY_HOSTNAME: gcr.io
+  REGISTRY_HOSTNAME: docker.io
   DEPLOYMENT_NAME: todolist
 
 jobs:
