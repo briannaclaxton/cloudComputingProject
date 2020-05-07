@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 print(dir(os.environ))
 
-TODO_API_URL = os.environ['TODO_API_IP']+":5000"
+TODO_API_URL = "http://"+os.environ['TODO_API_IP']+":5000"
 print(TODO_API_URL)
 @app.route("/")
 def show_list():
